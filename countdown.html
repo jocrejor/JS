@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>Plantilla</title>
+<meta charset="utf-8" />
+<script>
+    window.onload = updateClock;
+
+var totalTime = 300;
+
+function updateClock() {
+   var minuts = Math.floor(totalTime / 60); 
+   var segons = totalTime % 60;
+   if (segons<10){
+       segons= "0" + segons;
+   }
+   var temps = minuts + ":" + segons + " minutos";
+  document.getElementById('countdown').innerHTML = temps;
+
+  if(totalTime==0){
+    console.log('Final');
+  }else{
+    totalTime-=1;
+    setTimeout("updateClock()",1000);
+  }
+}
+
+</script>
+<style>
+    HTML CSS JSResult
+EDIT ON
+.countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 20vw;
+}
+
+</style>
+
+</head>
+
+
+
+<body>
+  
+    <header>
+
+       <h1 id="header">Carrito de la compra</h1>
+       
+    </header>
+    <section>
+       <article>
+           <h2>Tu carrito espira en ...</h2>
+           <span id="countdown"></span>
+
+           
+       </article>
+    </section>
+    <footer>
+        Curs 2020-21 de DAW al ies Enric Valor de Pego
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<html>
+    <head>
+
+    </head>
+
+<body>
+<p class="parrafo">Primer paragrafo</p>
+<p class="parrafo">Segon paragrafo</p>
+
+<button id="unboton"> Dale</button>
+
+<script>
+
+function dale() {
+/*    var p = document.getElementsByClassName("parrafo");
+    //p.foreach(function (element, index) {
+    for (var element of p){
+                element.innerHTML= "Paragrafo " + element;
+                console.log(element);
+        
+    };
+
+    */
+    // pasar HTMLParagraphElement a Array
+    var p = document.getElementsByClassName("parrafo");
+    var arr = Array.prototype.slice.call(p);
+    arr.forEach(element => {
+        console.log(element.innerText, arr.);
+    });
+  
+   }
+
+
+
+
+    document.getElementById("unboton").addEventListener("click", dale);
+    
+    
+    </script>
+
+</body>
+</html>

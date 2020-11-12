@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expressions Regulars
+    </title>
+    <script>
+
+        /* 
+        Realitza un formulari que comprove els següents camps:  
+
+        DNI : 9 dígits i una lletra en  majúscula.
+        Telefon amb el següent format: 999 999  999 
+        Data amb el següent format: AAAA/MM/DD  ( sols que es complisca el patró, però ajustar els valors màxims de dada dígit fent un rang.
+        Matrícula del cotxe :  9999 ZZZ  ( pots tindre encompte les resticcions de les vocals i conbnacions no permeses  com CH i LL 
+        email  ( mira en internet varies solucions i comprova)
+        URL   ( mira en internet varies solucions i comprova)
+        
+        */
+        var error
+
+        function validar (){
+            //var dni2 = document.forms[0].DNI;
+            var dni = document.getElementById("DNI");
+            var telefon = document.forms[0].elements[1];
+
+            console.log(data);
+
+            if (validar_dni(dni.value) && validar_telefon(telefon.value) && validar_data(data.value) && confirm(" Pren aceptar si vols enmviar el formulari")) {
+                document.getElementById("miForm").submit();
+                return true;
+            }else {
+                return false;
+            }
+
+
+        }
+
+        // validar DNI
+        function validar_dni(dni){
+            //
+            let miRe = new RegExp (/^\d{9}[A-Z]{1}$/);
+            if(miRe.test(dni)){
+              console.log("Dni és correcte ");
+              document.getElementById("error").innerText = "";
+              return true;
+
+            }
+              document.getElementById("error").innerText = "DNI és Incorrecte.";
+              return false;
+        }
+
+
+
+
+         // validar Telefon
+         function validar_telefon(telefon){
+            //
+
+            let miRe = new RegExp (/^\d{3}\s\d{3}\s\d{3}$/);
+            if(miRe.test(telefon)){
+              console.log("Telèfon és correcte ");
+              document.getElementById("error").innerText = "";
+              return true;
+
+            }
+              document.getElementById("error").innerText = "Telèfon és Incorrecte.";
+              return false;
+        }
+
+        // Data amb el següent format: AAAA/MM/DD  ( 
+            function validar_data(data){
+            //
+
+            let miRe = new RegExp (/^\d{4}\/(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])$/);
+            if(miRe.test(data)){
+              console.log("La Data és correct+a ");
+              document.getElementById("error").innerText = "";
+              return true;
+            }
+              document.getElementById("error").innerText = "La Data és Incorrecta.";
+              return false;
+        }
+        //Matrícula del cotxe :  9999 ZZZ 
+    </script>
+</head>
+<body>
+    <form id="miForm" method="post">
+          <label>DNI</label>
+          <input name="DNI" id="DNI" type="text"></br>
+
+          <label>Telèfon</label>
+          <input name="telefon" id="telefon" type="text"></br>
+       
+          <label>Data</label>
+          <input name="data" id="data" type="text" placeholder="AAAA/MM/DD">
+       
+          <input type="button" onclick="validar ();" value ="Valida">
+
+    </form>
+    <p id="error"></p>    
+</body>
+</html>

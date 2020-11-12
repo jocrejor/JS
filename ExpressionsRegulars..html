@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <title>Expressions Regulars </title>
+<script>
+function comprovar (){
+// recuperar valors del input
+let experessio = document.getElementById("expressio").value;
+let valor = document.getElementById("valor").value;
+
+// Crear una EXpressió Regular 
+var expressioRegular = new RegExp (experessio);
+console.log(expressioRegular.test(valor) );
+ if (expressioRegular.test(valor)){
+   alert("coincideix la cadena "+ valor + "amb l'expressió Reg" + experessio);
+
+ } else {
+    alert("NO coincideix !!!");
+ }
+};
+
+</script>
+
+
+</head>
+<body>
+    <form >
+    <fieldset>
+       <label>Valor: </label><input id="valor" type="text"></br>
+       <label>Expressió: </label><input id="expressio" type="text" placeholder="Espressió"></br>
+    </fieldset>
+       <input type="button"  id="comprova" value="Comprovar" onclick='comprovar()'>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>Us del localStorage</title>
+<meta charset="utf-8" />
+<script>
+    function validar(){
+            // vaidasr si ja existeix un usuari guardart en localstorage 
+            var usuari = localStorage.getItem('user');
+            var userScreen = document.getElementById("user").value;
+                        // falta validar usuari
+            var passScreen = document.getElementById("pass").value;
+                        // falta validar pass
+               if ( usuari == "" || usuari == null ){
+            // sin no exsisteix el gravem al  local  estorage 
+                localStorage.setItem("user",userScreen);
+                localStorage.setItem("pass",passScreen);
+
+                
+                   
+            }else{
+             
+             // existeix ja l'usuari i obtindre la contrasenya 
+            var contrasenya = localStorage.getItem("pass");
+            //console.log (usuari, contrasenya);
+            if (usuari = userScreen && contrasenya == passScreen){
+              
+                // es elcorrecte!!! 
+                document.getElementById("usuariregistrat").innerHTML = "Benvingut " + userScreen;  
+                document.getElementById("inici_sessio").style.visibility = "collapse";
+                document.getElementById("inici_sessio").style.display = "none";
+                document.getElementById("dins").style.visibility = "visible";
+                document.getElementById("dins").style.display = "block";         
+                    }else {
+                       //no coincideix 
+                       document.getElementById("error").innerHTML ="No coincideixen l'usuari i la contrasenya introduïda";
+                       document.getElementById("error").style.color ="red";
+                    }
+                       
+            }
+
+        
+    }
+
+    function eixir(){
+ 
+        document.getElementById("inici_sessio").style.visibility = "visible";
+        document.getElementById("inici_sessio").style.display = "block";
+        document.getElementById("dins").style.visibility = "collapse";
+        document.getElementById("dins").style.display = "none";         
+        localStorage.removeItem("user");
+        localStorage.removeItem("pass");        
+    }
+
+    
+function mostrar(){
+    var usuari = localStorage.getItem('user');
+    var contrasenya = localStorage.getItem("pass");
+    console.log (usuari, contrasenya);
+    
+}
+
+</script>
+
+</head>
+
+<body onload="mostrar();">
+  
+    <header>
+      
+        <h1 id="header">Sistema d'accés restringit</h1>
+       
+    </header>
+    <section>
+       <article>
+           <div id="inici_sessio" align="center"  style="visibility:visible; display:block;">
+            <h1>Inicia la sessió</h1>
+                <label for="user">Usuari: </label><input type="text" id="user" name="user"></input></br></br>
+                <label for="password">Contrasenya: </label><input type="password" id="pass" name="pass"></input></br></br>
+                <p id="error"> </p>
+                <button type="button" onclick="validar();" >Entrar</button>
+                
+           </div>
+           
+           
+        <div id="dins"  align="center" style="visibility: collapse; display:none;">
+            <h1> Dins de la APP</h1>
+            <h2 id="usuariregistrat"></h2>
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/3jTJqlRJ_5A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </br><button onclick="eixir()">Eixir</button>
+        </div>
+       </article>
+    </section>
+    <footer>
+        Curs 2020-21 de DAW al ies Enric Valor de Pego
+    </footer>
+  
+</body>
+</html>

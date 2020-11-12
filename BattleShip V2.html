@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<title>BattleShip</title>
+<head>
+    <style>
+        table, th, td {
+          border: 0px solid black;
+          border-collapse: collapse;
+}    
+th, td {
+  padding: 10px;
+}
+</style>
+
+<script>
+// Definir les constants: 
+const ACERTS =  10;
+const AIGUES =  15;
+const maxPartida= 3;
+const minPartida= 0; 
+
+var contAcerts;
+var contAigua;
+var partidaActiva;
+
+
+//Definim la les partides
+var partida = new Array();
+partida[0]  = [ 
+  ['','','','','','','','','',''],
+  ['','','','','','','','','',''],
+  ['','D','D','D','D','','','','',''],
+  ['','','','','','','','D','',''],
+  ['','','','','','','','D','',''],
+  ['','','','','','','','D','',''],
+  ['','D','D','','','','','','',''],
+  ['','','','','','','','','',''],
+  ['','','D','','','','','','',''],
+  ['','','','','','','','','',''] ];
+
+  partida[1]  = [ 
+  ['','','','','','','','','','D'],
+  ['','','','','','','','','','D'],
+  ['','','','','','','','','','D'],
+  ['','','','','','','','','','D'],
+  ['','','','','','','D','','',''],
+  ['','','','','','','','','',''],
+  ['','','','','','','','','',''],
+  ['','','D','','','','','D','D',''],
+  ['','','D','','','','','','',''],
+  ['','','D','','','','','','',''] ];
+
+  partida[2]  = [ 
+  ['','','','','','','','','','D'],
+  ['','','','','','','','','','D'],
+  ['','','','','','','','','','D'],
+  ['','','','','','','','','','D'],
+  ['','','','','','','D','','',''],
+  ['','','','','','','','','',''],
+  ['','','','','','','','','',''],
+  ['','','D','','','','','D','D',''],
+  ['','','D','','','','','','',''],
+  ['','','D','','','','','','',''] ];
+
+
+
+  // Crear el camp de batalla
+
+  function crearCamp (){
+     var i,j;
+     for (i=0;i<10;i++){
+         // creem el td>
+         document.write("<tr>");
+         for (j=0;j<10;j++){
+             if (j==0){
+                document.write("<td>" + i +"</td>");
+             }
+            document.write("<td id='" + i + "" + j +"'>&nbsp; </td>");
+
+         } 
+         document.write("</tr>");
+     }
+  }
+
+
+function inicialitza(){
+
+    // incialitzem contadors 
+    contAcerts = 0;
+    contAigua = 0;
+    partidaActiva = Math.floor(Math.random() * (maxPartida - minPartida)) + minPartida;
+    console.log(partidaActiva);
+
+    // Caregar la taula 
+    var i;
+    var j;
+    for (i=0; i<10;i++ ){
+        for (j=0; j<10;j++ ){
+         idcell = "" + i + "" + j + "";   
+    var  valor = document.getElementById(idcell);
+    valor.innerHTML="X";    
+    valor.style.color="black";
+        }    
+    }
+    var  acerts = document.getElementById("acerts");
+    acerts.innerHTML= contAcerts;
+    var  errors = document.getElementById("errors");
+    errors.innerHTML= contAigua;
+    var  totalaigues = document.getElementById("total");
+    totalaigues.innerHTML= "de " + AIGUES;
+    
+    // 
+
+}
+
+function comprova(){
+        var col = document.getElementById('col').value;
+        var fil = document.getElementById('fil').value;
+    //Obtindre valor del la partida activa 
+        var valorCelda = partida[partidaActiva][fil][col];
+    //console.log("columna " + col + " fila " + fil + "partida Activa" + partidaActiva + " valor " + valorCelda);
+    //console.log(valorCelda); 
+
+    // Pintar el camp
+    var coordenada = document.getElementById(""+ fil +""+ col);
+    var valorSeleccionat= coordenada.innerHTML; 
+    if (valorSeleccionat == "X"){
+        //console.log(valorSeleccionat);
+        coordenada.innerHTML=valorCelda;
+         
+        if (valorCelda== "D"){
+            coordenada.style.color="red";
+            contAcerts= contAcerts +1;
+            var  acerts = document.getElementById("acerts");
+            acerts.innerHTML= contAcerts;
+            if (contAcerts== 10){
+                   window.alert("Enhorabona has afonat la flota!!!");
+           }
+
+        }else{
+           contAigua = contAigua +1;
+           var  errors = document.getElementById("errors");
+           errors.innerHTML= contAigua;
+           if (contAigua== AIGUES){
+               window.alert("Has perdut la partida, torna a començar ;)");
+               inicialitza();
+            }
+
+        }
+    }
+}
+
+
+</script>
+</head>
+<body>
+
+<div align="center">
+    <h1> Battle Ship</h1>
+    <button onclick="inicialitza()">Nova partida</button> 
+    <table>
+        <tr>
+            <td>Acerts:</td><td id="acerts"></td><td>Errors:</td><td id="errors"></td><td><p id="total"></p></td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td >&nbsp;</td>
+            <td >A</td>
+            <td >B</td>
+            <td >C</td>
+            <td >D</td>
+            <td >E</td>
+            <td >F</td>
+            <td >G</td>
+            <td >H</td>
+            <td >I</td>
+            <td >J</td>
+        </tr>
+        <script>
+            crearCamp ();
+        </script>  
+
+</table>
+<label for="Fila">Fila:</label>
+<select id="fil" name="fil">
+  <option value="0">0</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  <option value="6">6</option>
+  <option value="7">7</option>
+  <option value="8">8</option>
+  <option value="9">9</option>
+</select> 
+
+
+<label for="Columna">Columna:</label>
+<select id="col" name="col">
+  <option value="0">A</option>
+  <option value="1">B</option>
+  <option value="2">C</option>
+  <option value="3">D</option>
+  <option value="4">E</option>
+  <option value="5">F</option>
+  <option value="6">G</option>
+  <option value="7">H</option>
+  <option value="8">I</option>
+  <option value="9">J</option>
+</select> 
+
+
+
+<button onclick="comprova()">Dispara</button> 
+</div>
+
+</body>
+</html>
